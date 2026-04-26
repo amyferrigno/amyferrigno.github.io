@@ -22,6 +22,16 @@
       </div>
     </div>
     <div class="header-right">
+      <label class="import-btn" for="csv-input" title="Load CSV files from your data/ folder">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="17 8 12 3 7 8"/>
+          <line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+        Load CSV
+        <input type="file" id="csv-input" multiple accept=".csv" hidden>
+      </label>
+      <span class="data-badge" id="data-badge">Demo</span>
       <div class="week-nav">
         <button class="nav-btn" id="prev-day" aria-label="Previous day">&#8249;</button>
         <span id="day-label" class="day-label">Today</span>
@@ -32,6 +42,16 @@
   </header>
 
   <main class="main">
+
+    <!-- DEMO BANNER -->
+    <div class="demo-banner" id="demo-banner">
+      <span class="demo-banner-text">
+        Viewing demo data &mdash;
+        <label for="csv-input" class="demo-link">load your Oura CSV exports</label>
+        from the <code>data/</code> folder to see your real biometric stats.
+      </span>
+      <button class="demo-close" id="demo-close" aria-label="Dismiss">&#215;</button>
+    </div>
 
     <!-- SCORE RINGS -->
     <section class="scores-section">
@@ -314,6 +334,20 @@
       </p>
     </div>
   </footer>
+
+  <!-- DROP OVERLAY -->
+  <div class="drop-overlay" id="drop-overlay" aria-hidden="true">
+    <div class="drop-card">
+      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="17 8 12 3 7 8"/>
+        <line x1="12" y1="3" x2="12" y2="15"/>
+      </svg>
+      <h2>Drop your Oura CSV files</h2>
+      <p class="drop-hint">readiness.csv &nbsp;&middot;&nbsp; sleep.csv &nbsp;&middot;&nbsp; activity.csv</p>
+      <p class="drop-secure">&#128274;&nbsp; Files stay on your device &mdash; nothing is uploaded</p>
+    </div>
+  </div>
 
   <script src="app.js"></script>
 </body>
