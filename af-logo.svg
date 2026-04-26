@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="Amy Ferrigno Health Dashboard">
+  <defs>
+    <clipPath id="clip-circle">
+      <circle cx="80" cy="80" r="75"/>
+    </clipPath>
+    <radialGradient id="bg-depth" cx="50%" cy="38%" r="65%">
+      <stop offset="0%" stop-color="#1c1c2c"/>
+      <stop offset="100%" stop-color="#09090f"/>
+    </radialGradient>
+    <filter id="glow-gold" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="glow-teal" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <circle cx="80" cy="80" r="80" fill="#09090f"/>
+  <circle cx="80" cy="80" r="75" fill="url(#bg-depth)"/>
+
+  <!-- Outer decorative rings -->
+  <circle cx="80" cy="80" r="75" fill="none" stroke="#c8a96e" stroke-width="2.5" filter="url(#glow-gold)"/>
+  <circle cx="80" cy="80" r="68" fill="none" stroke="#c8a96e" stroke-width="0.5" opacity="0.18"/>
+
+  <!-- ECG / heartbeat line — clipped to inner circle -->
+  <g clip-path="url(#clip-circle)" filter="url(#glow-teal)">
+    <polyline
+      points="5,80 32,80 40,57 50,103 58,68 65,90 72,80 155,80"
+      fill="none"
+      stroke="#6ec8a9"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      opacity="0.65"/>
+  </g>
+
+  <!-- Separators -->
+  <line x1="42" y1="109" x2="118" y2="109" stroke="#c8a96e" stroke-width="0.5" opacity="0.25"/>
+
+  <!-- "HEALTH" top label -->
+  <text x="80" y="34"
+    font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif"
+    font-size="8" font-weight="500"
+    fill="#5e5e82" text-anchor="middle"
+    letter-spacing="6">HEALTH</text>
+
+  <!-- AF monogram — primary element -->
+  <text x="80" y="101"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="54" font-weight="bold"
+    fill="#c8a96e" text-anchor="middle"
+    filter="url(#glow-gold)">AF</text>
+
+  <!-- Name -->
+  <text x="80" y="124"
+    font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif"
+    font-size="9.5" font-weight="600"
+    fill="#9090b2" text-anchor="middle"
+    letter-spacing="3.5">AMY FERRIGNO</text>
+
+  <!-- Copyright line -->
+  <text x="80" y="146"
+    font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif"
+    font-size="7" fill="#44445e"
+    text-anchor="middle" letter-spacing="0.5">© 2026 Amy Ferrigno. All rights reserved.</text>
+</svg>
