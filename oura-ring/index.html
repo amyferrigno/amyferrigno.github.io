@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amy Ferrigno · Health Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-left">
+      <div class="logo">
+        <img src="af-logo.svg" alt="Amy Ferrigno logo" class="logo-img" width="40" height="40" />
+        <div class="logo-wordmark">
+          <span class="logo-name">Amy Ferrigno</span>
+          <span class="logo-sub">Health Dashboard</span>
+        </div>
+      </div>
+      <div class="header-date">
+        <span id="current-date" class="date-sub"></span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="week-nav">
+        <button class="nav-btn" id="prev-day" aria-label="Previous day">&#8249;</button>
+        <span id="day-label" class="day-label">Today</span>
+        <button class="nav-btn" id="next-day" aria-label="Next day">&#8250;</button>
+      </div>
+      <div class="avatar">AF</div>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- SCORE RINGS -->
+    <section class="scores-section">
+      <div class="score-card" id="card-readiness">
+        <div class="ring-wrap">
+          <svg class="ring-svg" viewBox="0 0 120 120">
+            <circle class="ring-bg" cx="60" cy="60" r="50"/>
+            <circle class="ring-progress" id="ring-readiness" cx="60" cy="60" r="50"
+              stroke="#6ec8a9" stroke-dasharray="314" stroke-dashoffset="314"/>
+          </svg>
+          <div class="ring-inner">
+            <span class="score-value" id="val-readiness">--</span>
+            <span class="score-label">Readiness</span>
+          </div>
+        </div>
+        <div class="score-meta">
+          <span class="score-status" id="status-readiness"></span>
+          <div class="score-contributors" id="contrib-readiness"></div>
+        </div>
+      </div>
+
+      <div class="score-card" id="card-sleep">
+        <div class="ring-wrap">
+          <svg class="ring-svg" viewBox="0 0 120 120">
+            <circle class="ring-bg" cx="60" cy="60" r="50"/>
+            <circle class="ring-progress" id="ring-sleep" cx="60" cy="60" r="50"
+              stroke="#6e9ec8" stroke-dasharray="314" stroke-dashoffset="314"/>
+          </svg>
+          <div class="ring-inner">
+            <span class="score-value" id="val-sleep">--</span>
+            <span class="score-label">Sleep</span>
+          </div>
+        </div>
+        <div class="score-meta">
+          <span class="score-status" id="status-sleep"></span>
+          <div class="score-contributors" id="contrib-sleep"></div>
+        </div>
+      </div>
+
+      <div class="score-card" id="card-activity">
+        <div class="ring-wrap">
+          <svg class="ring-svg" viewBox="0 0 120 120">
+            <circle class="ring-bg" cx="60" cy="60" r="50"/>
+            <circle class="ring-progress" id="ring-activity" cx="60" cy="60" r="50"
+              stroke="#c86e6e" stroke-dasharray="314" stroke-dashoffset="314"/>
+          </svg>
+          <div class="ring-inner">
+            <span class="score-value" id="val-activity">--</span>
+            <span class="score-label">Activity</span>
+          </div>
+        </div>
+        <div class="score-meta">
+          <span class="score-status" id="status-activity"></span>
+          <div class="score-contributors" id="contrib-activity"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VITALS STRIP -->
+    <section class="vitals-section">
+      <div class="vital-card">
+        <div class="vital-icon">&#9829;</div>
+        <div class="vital-info">
+          <span class="vital-value" id="vital-hr">--</span>
+          <span class="vital-unit">bpm</span>
+        </div>
+        <span class="vital-label">Resting HR</span>
+        <div class="vital-trend" id="trend-hr"></div>
+      </div>
+      <div class="vital-card">
+        <div class="vital-icon hrv-icon">&#10022;</div>
+        <div class="vital-info">
+          <span class="vital-value" id="vital-hrv">--</span>
+          <span class="vital-unit">ms</span>
+        </div>
+        <span class="vital-label">HRV</span>
+        <div class="vital-trend" id="trend-hrv"></div>
+      </div>
+      <div class="vital-card">
+        <div class="vital-icon">&#9651;</div>
+        <div class="vital-info">
+          <span class="vital-value" id="vital-temp">--</span>
+          <span class="vital-unit">°F dev</span>
+        </div>
+        <span class="vital-label">Body Temp</span>
+        <div class="vital-trend" id="trend-temp"></div>
+      </div>
+      <div class="vital-card">
+        <div class="vital-icon spo2-icon">O&#8322;</div>
+        <div class="vital-info">
+          <span class="vital-value" id="vital-spo2">--</span>
+          <span class="vital-unit">%</span>
+        </div>
+        <span class="vital-label">SpO₂</span>
+        <div class="vital-trend" id="trend-spo2"></div>
+      </div>
+      <div class="vital-card">
+        <div class="vital-icon">&#8767;</div>
+        <div class="vital-info">
+          <span class="vital-value" id="vital-resp">--</span>
+          <span class="vital-unit">rpm</span>
+        </div>
+        <span class="vital-label">Resp. Rate</span>
+        <div class="vital-trend" id="trend-resp"></div>
+      </div>
+    </section>
+
+    <!-- BOTTOM GRID -->
+    <section class="bottom-grid">
+
+      <!-- SLEEP BREAKDOWN -->
+      <div class="panel sleep-panel">
+        <div class="panel-header">
+          <h2 class="panel-title">Sleep Breakdown</h2>
+          <span class="panel-sub" id="sleep-duration-label"></span>
+        </div>
+        <div class="sleep-timeline" id="sleep-timeline"></div>
+        <div class="sleep-stages">
+          <div class="stage-item">
+            <span class="stage-dot" style="background:#4a90d9"></span>
+            <span class="stage-name">REM</span>
+            <span class="stage-val" id="stage-rem">--</span>
+          </div>
+          <div class="stage-item">
+            <span class="stage-dot" style="background:#2e5fa3"></span>
+            <span class="stage-name">Deep</span>
+            <span class="stage-val" id="stage-deep">--</span>
+          </div>
+          <div class="stage-item">
+            <span class="stage-dot" style="background:#7eb8f7"></span>
+            <span class="stage-name">Light</span>
+            <span class="stage-val" id="stage-light">--</span>
+          </div>
+          <div class="stage-item">
+            <span class="stage-dot" style="background:#3a3a50"></span>
+            <span class="stage-name">Awake</span>
+            <span class="stage-val" id="stage-awake">--</span>
+          </div>
+        </div>
+        <div class="sleep-times">
+          <div class="sleep-time-item">
+            <span class="sleep-time-icon">&#9790;</span>
+            <span class="sleep-time-label">Bedtime</span>
+            <span class="sleep-time-val" id="sleep-bedtime">--</span>
+          </div>
+          <div class="sleep-time-item">
+            <span class="sleep-time-icon">&#9728;</span>
+            <span class="sleep-time-label">Wake up</span>
+            <span class="sleep-time-val" id="sleep-wakeup">--</span>
+          </div>
+          <div class="sleep-time-item">
+            <span class="sleep-time-icon">&#128164;</span>
+            <span class="sleep-time-label">Efficiency</span>
+            <span class="sleep-time-val" id="sleep-efficiency">--</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- WEEKLY TRENDS CHART -->
+      <div class="panel trends-panel">
+        <div class="panel-header">
+          <h2 class="panel-title">7-Day Trends</h2>
+          <div class="trend-tabs">
+            <button class="trend-tab active" data-metric="readiness">Readiness</button>
+            <button class="trend-tab" data-metric="sleep">Sleep</button>
+            <button class="trend-tab" data-metric="activity">Activity</button>
+            <button class="trend-tab" data-metric="hrv">HRV</button>
+          </div>
+        </div>
+        <canvas id="trend-chart" class="trend-canvas"></canvas>
+      </div>
+
+      <!-- ACTIVITY METRICS -->
+      <div class="panel activity-panel">
+        <div class="panel-header">
+          <h2 class="panel-title">Activity</h2>
+          <span class="panel-sub" id="activity-goal-label"></span>
+        </div>
+        <div class="activity-metrics">
+          <div class="activity-metric">
+            <div class="activity-progress-ring">
+              <svg viewBox="0 0 80 80">
+                <circle cx="40" cy="40" r="32" fill="none" stroke="#1e1e2e" stroke-width="6"/>
+                <circle cx="40" cy="40" r="32" fill="none" stroke="#c86e6e" stroke-width="6"
+                  stroke-dasharray="201" id="steps-ring"
+                  stroke-dashoffset="201" stroke-linecap="round"
+                  transform="rotate(-90 40 40)"/>
+              </svg>
+              <div class="activity-ring-inner">
+                <span class="activity-icon">&#128099;</span>
+              </div>
+            </div>
+            <div class="activity-text">
+              <span class="activity-value" id="val-steps">--</span>
+              <span class="activity-label">Steps</span>
+              <span class="activity-goal" id="goal-steps">/ 10,000</span>
+            </div>
+          </div>
+
+          <div class="activity-metric">
+            <div class="activity-progress-ring">
+              <svg viewBox="0 0 80 80">
+                <circle cx="40" cy="40" r="32" fill="none" stroke="#1e1e2e" stroke-width="6"/>
+                <circle cx="40" cy="40" r="32" fill="none" stroke="#e8935a" stroke-width="6"
+                  stroke-dasharray="201" id="cal-ring"
+                  stroke-dashoffset="201" stroke-linecap="round"
+                  transform="rotate(-90 40 40)"/>
+              </svg>
+              <div class="activity-ring-inner">
+                <span class="activity-icon">&#128293;</span>
+              </div>
+            </div>
+            <div class="activity-text">
+              <span class="activity-value" id="val-calories">--</span>
+              <span class="activity-label">Active Cal</span>
+              <span class="activity-goal" id="goal-calories">/ 500</span>
+            </div>
+          </div>
+
+          <div class="activity-metric">
+            <div class="activity-progress-ring">
+              <svg viewBox="0 0 80 80">
+                <circle cx="40" cy="40" r="32" fill="none" stroke="#1e1e2e" stroke-width="6"/>
+                <circle cx="40" cy="40" r="32" fill="none" stroke="#a07cf0" stroke-width="6"
+                  stroke-dasharray="201" id="active-ring"
+                  stroke-dashoffset="201" stroke-linecap="round"
+                  transform="rotate(-90 40 40)"/>
+              </svg>
+              <div class="activity-ring-inner">
+                <span class="activity-icon">&#9203;</span>
+              </div>
+            </div>
+            <div class="activity-text">
+              <span class="activity-value" id="val-active-min">--</span>
+              <span class="activity-label">Active Min</span>
+              <span class="activity-goal" id="goal-active-min">/ 60 min</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="inactivity-bar-wrap">
+          <span class="inactivity-label">Inactivity alerts</span>
+          <div class="inactivity-bar">
+            <div class="inactivity-fill" id="inactivity-fill"></div>
+          </div>
+          <span class="inactivity-val" id="inactivity-val">--</span>
+        </div>
+
+        <div class="met-row">
+          <div class="met-item">
+            <span class="met-label">MET avg</span>
+            <span class="met-value" id="val-met">--</span>
+          </div>
+          <div class="met-item">
+            <span class="met-label">Distance</span>
+            <span class="met-value" id="val-distance">--</span>
+          </div>
+          <div class="met-item">
+            <span class="met-label">High activity</span>
+            <span class="met-value" id="val-high">--</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="af-logo.svg" alt="Amy Ferrigno" class="footer-logo" width="36" height="36" />
+        <span class="footer-name">Amy Ferrigno</span>
+      </div>
+      <p class="footer-love">
+        Made with <span class="footer-heart" aria-label="love">&#10084;</span> by Amy Ferrigno
+      </p>
+      <p class="footer-copy">
+        &copy; 2026 Amy Ferrigno. All rights reserved.<br/>
+        <span class="footer-note">Personal health data dashboard &mdash; not affiliated with Oura Ring.</span>
+      </p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
