@@ -605,6 +605,187 @@ body {
   .trend-tabs { flex-wrap: wrap; }
 }
 
+/* ── Day / Week toggle ───────────────────────────────────── */
+.view-toggle {
+  display: flex;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 2px;
+  gap: 1px;
+}
+.toggle-btn {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 0.28rem 0.75rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.toggle-btn:hover { color: var(--text); }
+.toggle-btn.active {
+  background: var(--gold);
+  color: var(--bg);
+}
+
+/* ── Week mode badge on score cards ─────────────────────── */
+.week-tracked-badge {
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 0.15rem 0.5rem;
+  margin-left: 0.4rem;
+  vertical-align: middle;
+}
+
+/* ── CSV import button ───────────────────────────────────── */
+.import-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 0.35rem 0.9rem 0.35rem 0.7rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-mid);
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.03em;
+  user-select: none;
+  white-space: nowrap;
+}
+.import-btn:hover { border-color: var(--gold-dim); color: var(--gold); }
+
+/* ── Data source badge ───────────────────────────────────── */
+.data-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 0.2rem 0.65rem;
+  border-radius: 50px;
+  background: rgba(200,169,110,0.1);
+  color: var(--gold-dim);
+  border: 1px solid rgba(200,169,110,0.18);
+  transition: all 0.4s;
+  white-space: nowrap;
+}
+.data-badge.live {
+  background: rgba(110,200,169,0.12);
+  color: var(--teal);
+  border-color: rgba(110,200,169,0.25);
+}
+
+/* ── Demo banner ─────────────────────────────────────────── */
+.demo-banner {
+  background: rgba(200,169,110,0.07);
+  border: 1px solid rgba(200,169,110,0.18);
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  animation: fadeUp 0.4s ease both;
+}
+.demo-banner-text { flex: 1; }
+.demo-link {
+  color: var(--gold);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: transparent;
+  transition: text-decoration-color 0.2s;
+}
+.demo-link:hover { text-decoration-color: var(--gold); }
+.demo-banner code {
+  font-family: 'Menlo', 'Consolas', monospace;
+  background: rgba(255,255,255,0.07);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.82em;
+  color: var(--text-mid);
+}
+.demo-close {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  flex-shrink: 0;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+.demo-close:hover { opacity: 1; }
+
+/* ── Drop overlay ────────────────────────────────────────── */
+.drop-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(9,9,15,0.85);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 600;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s;
+}
+.drop-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.drop-card {
+  background: var(--surface);
+  border: 2px dashed var(--gold);
+  border-radius: 24px;
+  padding: 3rem 4rem;
+  max-width: 440px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  text-align: center;
+  animation: pulseGold 2.2s ease-in-out infinite;
+}
+.drop-card h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-top: 0.4rem;
+}
+.drop-hint {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+}
+.drop-secure {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  opacity: 0.55;
+  margin-top: 0.2rem;
+}
+
+@keyframes pulseGold {
+  0%, 100% { box-shadow: 0 0 0   0   rgba(200,169,110,0);    }
+  50%       { box-shadow: 0 0 28px 6px rgba(200,169,110,0.13); }
+}
+
 /* ── Footer ──────────────────────────────────────────────── */
 .footer {
   margin-top: 3rem;
