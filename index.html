@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Amy Ferrigno · Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -14,7 +17,9 @@
       --border:    #24243a;
       --gold:      #c8a96e;
       --gold-dim:  #8a7248;
+      --gold-glow: rgba(200,169,110,0.15);
       --teal:      #6ec8a9;
+      --teal-glow: rgba(110,200,169,0.12);
       --blue:      #6e9ec8;
       --coral:     #c86e6e;
       --purple:    #a07cf0;
@@ -22,106 +27,318 @@
       --text:      #e8e8f0;
       --text-dim:  #7070a0;
       --text-mid:  #a0a0c0;
-      --radius:    16px;
+      --radius:    20px;
       --radius-sm: 10px;
     }
 
-    html { font-size: 15px; }
+    html { font-size: 15px; scroll-behavior: smooth; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
-      line-height: 1.4;
-      padding-bottom: 4rem;
+      line-height: 1.5;
+      overflow-x: hidden;
     }
 
-    /* Header */
+    /* ── Mesh background ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 20% 10%, rgba(200,169,110,0.07) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(110,200,169,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 60% at 60% 20%, rgba(160,124,240,0.05) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Header ── */
     .header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1.2rem 2rem;
+      padding: 1.1rem 2.5rem;
       border-bottom: 1px solid var(--border);
-      background: rgba(9,9,15,0.95);
+      background: rgba(9,9,15,0.85);
       position: sticky;
       top: 0;
       z-index: 100;
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
     }
 
-    .logo { display: flex; align-items: center; gap: 0.75rem; }
+    .logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
     .logo-img { display: block; flex-shrink: 0; }
     .logo-wordmark { display: flex; flex-direction: column; gap: 1px; }
     .logo-name {
-      font-size: 1.05rem;
+      font-size: 1rem;
       font-weight: 700;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.02em;
       color: var(--gold);
       line-height: 1.2;
     }
     .logo-sub {
-      font-size: 0.65rem;
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-dim);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .nav-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      color: var(--text-mid);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+    .nav-icon:hover { color: var(--gold); border-color: var(--gold-dim); background: var(--gold-glow); }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 6rem 2rem 4rem;
+      text-align: center;
+    }
+
+    .availability {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--teal);
+      background: rgba(110,200,169,0.08);
+      border: 1px solid rgba(110,200,169,0.2);
+      border-radius: 50px;
+      padding: 0.35rem 1rem;
+      margin-bottom: 2rem;
+    }
+    .avail-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--teal);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    .hero-avatar {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold-dim), var(--gold));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--bg);
+      margin: 0 auto 1.75rem;
+      box-shadow: 0 0 0 4px rgba(200,169,110,0.15), 0 0 40px rgba(200,169,110,0.2);
+    }
+
+    .hero-name {
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      background: linear-gradient(135deg, #e8e8f0 0%, var(--gold) 60%, #e8935a 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+    }
+
+    .hero-role {
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--text-mid);
+      margin-bottom: 0.6rem;
+    }
+    .hero-role strong { color: var(--text); font-weight: 600; }
+
+    .hero-bio {
+      font-size: 0.92rem;
+      color: var(--text-dim);
+      max-width: 480px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
+    }
+
+    .hero-stats {
+      display: inline-flex;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--surface);
+    }
+    .stat {
+      padding: 0.9rem 1.8rem;
+      border-right: 1px solid var(--border);
+      text-align: center;
+    }
+    .stat:last-child { border-right: none; }
+    .stat-value {
+      display: block;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1.1;
+    }
+    .stat-label {
+      display: block;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      margin-top: 0.2rem;
+    }
+
+    /* ── Section ── */
+    .section {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem 6rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .section-title {
+      font-size: 0.72rem;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.14em;
       color: var(--text-dim);
     }
-
-    /* Hero */
-    .hero {
-      text-align: center;
-      padding: 5rem 2rem 3rem;
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
     }
-    .hero-title {
-      font-size: 2.4rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      color: var(--text);
-      margin-bottom: 0.75rem;
-    }
-    .hero-title span { color: var(--gold); }
-    .hero-sub {
-      font-size: 1rem;
+    .section-count {
+      font-size: 0.68rem;
+      font-weight: 600;
       color: var(--text-dim);
-      max-width: 420px;
-      margin: 0 auto;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 0.2rem 0.6rem;
     }
 
-    /* Grid */
+    /* ── Cards grid ── */
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.5rem;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 2rem;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.25rem;
     }
 
-    /* Project card */
     .card {
+      position: relative;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 1.75rem;
+      padding: 0;
       text-decoration: none;
       color: inherit;
       display: flex;
       flex-direction: column;
-      gap: 1rem;
-      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      overflow: hidden;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
     }
     .card:hover {
       border-color: var(--gold-dim);
-      transform: translateY(-3px);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(200,169,110,0.1);
+    }
+    .card:hover .card-preview { opacity: 0.9; }
+    .card:hover .card-arrow { transform: translate(2px, -2px); }
+
+    .card-preview {
+      height: 160px;
+      position: relative;
+      overflow: hidden;
+      transition: opacity 0.25s;
+    }
+
+    .card-preview-health {
+      background: linear-gradient(135deg, #0d1a14 0%, #0a1a20 50%, #130d1a 100%);
+    }
+    .card-preview-health::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 60% at 30% 40%, rgba(110,200,169,0.25) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 50% at 70% 60%, rgba(110,158,200,0.2) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 80% 20%, rgba(200,110,110,0.15) 0%, transparent 70%);
+    }
+
+    .preview-rings {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      z-index: 1;
+    }
+    .mini-ring {
+      width: 64px;
+      height: 64px;
+      filter: drop-shadow(0 0 8px currentColor);
+    }
+    .mini-ring circle { fill: none; stroke-width: 8; stroke-linecap: round; }
+    .ring-bg-c { opacity: 0.15; }
+
+    .card-body {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      flex: 1;
+    }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
     .card-badge {
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       font-weight: 700;
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -129,115 +346,223 @@
       background: var(--surface2);
       border: 1px solid var(--border);
       border-radius: 50px;
-      padding: 0.25rem 0.75rem;
-      width: fit-content;
+      padding: 0.22rem 0.65rem;
     }
     .badge-dot {
-      width: 6px;
-      height: 6px;
+      width: 5px;
+      height: 5px;
       border-radius: 50%;
       flex-shrink: 0;
     }
 
+    .card-arrow {
+      font-size: 1.1rem;
+      color: var(--text-dim);
+      transition: transform 0.2s, color 0.2s;
+      line-height: 1;
+    }
+    .card:hover .card-arrow { color: var(--gold); }
+
     .card-title {
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       font-weight: 700;
       color: var(--text);
+      letter-spacing: -0.01em;
     }
+
     .card-desc {
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       color: var(--text-mid);
-      line-height: 1.6;
+      line-height: 1.65;
       flex: 1;
     }
-    .card-link {
-      font-size: 0.8rem;
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.25rem;
+    }
+    .tag {
+      font-size: 0.62rem;
       font-weight: 600;
-      color: var(--gold);
-      letter-spacing: 0.04em;
+      letter-spacing: 0.06em;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+    }
+
+    /* ── Footer ── */
+    .footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 2rem;
       display: flex;
       align-items: center;
-      gap: 0.35rem;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      max-width: 1100px;
+      margin: 0 auto;
     }
-    .card-link::after { content: '→'; }
 
-    /* Footer */
-    .footer {
-      margin-top: 5rem;
-      border-top: 1px solid var(--border);
-      padding: 2rem;
-      text-align: center;
-    }
     .footer-brand {
-      display: inline-flex;
+      display: flex;
       align-items: center;
       gap: 0.6rem;
-      margin-bottom: 0.75rem;
     }
     .footer-name {
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 700;
       color: var(--gold);
     }
     .footer-copy {
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       color: var(--text-dim);
-      line-height: 1.8;
+      line-height: 1.7;
+      text-align: right;
     }
     .footer-heart { color: var(--coral); }
 
-    @media (max-width: 600px) {
-      .hero-title { font-size: 1.7rem; }
-      .header { padding: 1rem; }
-      .grid { padding: 0 1rem; }
+    /* ── Fade-in animation ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero        { animation: fadeUp 0.6s ease both; }
+    .section     { animation: fadeUp 0.6s ease 0.15s both; }
+
+    /* ── Responsive ── */
+    @media (max-width: 680px) {
+      .header { padding: 1rem 1.25rem; }
+      .hero { padding: 4rem 1.25rem 3rem; }
+      .section { padding: 0 1.25rem 4rem; }
+      .hero-stats { flex-direction: column; width: 100%; }
+      .stat { border-right: none; border-bottom: 1px solid var(--border); }
+      .stat:last-child { border-bottom: none; }
+      .footer { flex-direction: column; align-items: flex-start; }
+      .footer-copy { text-align: left; }
     }
   </style>
 </head>
 <body>
 
+  <!-- HEADER -->
   <header class="header">
-    <div class="logo">
-      <img src="af-logo.svg" alt="Amy Ferrigno logo" class="logo-img" width="40" height="40" />
+    <a class="logo" href="/">
+      <img src="af-logo.svg" alt="Amy Ferrigno logo" class="logo-img" width="38" height="38" />
       <div class="logo-wordmark">
         <span class="logo-name">Amy Ferrigno</span>
         <span class="logo-sub">Portfolio</span>
       </div>
-    </div>
+    </a>
+    <nav class="nav-links">
+      <a class="nav-icon" href="https://github.com/amyferrigno" target="_blank" rel="noopener" title="GitHub">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+      </a>
+    </nav>
   </header>
 
-  <main>
-    <section class="hero">
-      <h1 class="hero-title">My <span>Creations</span></h1>
-      <p class="hero-sub">Personal projects, dashboards, and experiments.</p>
-    </section>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="availability">
+      <span class="avail-dot"></span>
+      Open to new projects
+    </div>
+
+    <div class="hero-avatar">AF</div>
+
+    <h1 class="hero-name">Amy Ferrigno</h1>
+    <p class="hero-role"><strong>Product &amp; Design</strong> · Building things that matter</p>
+    <p class="hero-bio">
+      I design and build personal projects at the intersection of health, data, and beautiful interfaces.
+      Each project here is something I made because I wanted it to exist.
+    </p>
+
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-value">1</span>
+        <span class="stat-label">Live project</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">∞</span>
+        <span class="stat-label">Ideas in progress</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">100%</span>
+        <span class="stat-label">Side-project driven</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-title">Projects</span>
+      <div class="section-line"></div>
+      <span class="section-count">1</span>
+    </div>
 
     <div class="grid">
 
       <a class="card" href="/oura-ring/">
-        <span class="card-badge">
-          <span class="badge-dot" style="background: var(--teal);"></span>
-          Health
-        </span>
-        <div class="card-title">Health Dashboard</div>
-        <p class="card-desc">
-          A personal Oura Ring-inspired dashboard tracking readiness, sleep, and activity scores with daily trends.
-        </p>
-        <span class="card-link">View project</span>
+        <div class="card-preview card-preview-health">
+          <div class="preview-rings">
+            <!-- Readiness ring -->
+            <svg class="mini-ring" viewBox="0 0 64 64" style="color:#6ec8a9">
+              <circle class="ring-bg-c" cx="32" cy="32" r="26" stroke="#6ec8a9"/>
+              <circle cx="32" cy="32" r="26" stroke="#6ec8a9" stroke-dasharray="163" stroke-dashoffset="45" stroke-dasharray="163" transform="rotate(-90 32 32)"/>
+            </svg>
+            <!-- Sleep ring -->
+            <svg class="mini-ring" viewBox="0 0 64 64" style="color:#6e9ec8">
+              <circle class="ring-bg-c" cx="32" cy="32" r="26" stroke="#6e9ec8"/>
+              <circle cx="32" cy="32" r="26" stroke="#6e9ec8" stroke-dasharray="163" stroke-dashoffset="60" transform="rotate(-90 32 32)"/>
+            </svg>
+            <!-- Activity ring -->
+            <svg class="mini-ring" viewBox="0 0 64 64" style="color:#c86e6e">
+              <circle class="ring-bg-c" cx="32" cy="32" r="26" stroke="#c86e6e"/>
+              <circle cx="32" cy="32" r="26" stroke="#c86e6e" stroke-dasharray="163" stroke-dashoffset="30" transform="rotate(-90 32 32)"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-badge">
+              <span class="badge-dot" style="background:var(--teal)"></span>
+              Health &amp; Wellness
+            </span>
+            <span class="card-arrow">↗</span>
+          </div>
+          <div class="card-title">Health Dashboard</div>
+          <p class="card-desc">
+            A personal dashboard inspired by Oura Ring — tracking readiness, sleep, and activity with animated score rings and daily trend charts.
+          </p>
+          <div class="card-tags">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">Data Viz</span>
+          </div>
+        </div>
       </a>
 
-      <!-- Add future projects here -->
+      <!-- Future cards go here -->
 
     </div>
-  </main>
+  </section>
 
+  <!-- FOOTER -->
   <footer class="footer">
     <div class="footer-brand">
-      <img src="af-logo.svg" alt="Amy Ferrigno" width="32" height="32" />
+      <img src="af-logo.svg" alt="Amy Ferrigno" width="30" height="30" />
       <span class="footer-name">Amy Ferrigno</span>
     </div>
     <p class="footer-copy">
-      Made with <span class="footer-heart">&#10084;</span> by Amy Ferrigno<br/>
-      &copy; 2026 Amy Ferrigno. All rights reserved.
+      Made with <span class="footer-heart">&#10084;</span> · &copy; 2026 Amy Ferrigno
     </p>
   </footer>
 
