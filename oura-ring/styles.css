@@ -733,21 +733,22 @@ body {
 
 /* ── Drop overlay ────────────────────────────────────────── */
 .drop-overlay {
+  display: none;
   position: fixed;
   inset: 0;
   background: rgba(9,9,15,0.85);
   backdrop-filter: blur(10px);
-  display: flex;
   align-items: center;
   justify-content: center;
   z-index: 600;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.18s;
 }
 .drop-overlay.active {
-  opacity: 1;
-  pointer-events: auto;
+  display: flex;
+  animation: overlayFadeIn 0.18s ease;
+}
+@keyframes overlayFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 .drop-card {
   background: var(--surface);
